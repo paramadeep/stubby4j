@@ -5,8 +5,8 @@ import by.stub.handlers.AdminPortalHandler;
 import by.stub.repackaged.org.apache.commons.codec.binary.Base64;
 import by.stub.server.JettyFactory;
 import by.stub.utils.StringUtils;
-import org.eclipse.jetty.http.HttpMethods;
-import org.eclipse.jetty.http.HttpSchemes;
+import org.eclipse.jetty.http.HttpMethod;
+import org.eclipse.jetty.http.HttpScheme;
 import org.eclipse.jetty.http.HttpStatus;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -57,8 +57,8 @@ public class StubbyClientTest {
       final String uri = "/item/1";
 
       final StubbyResponse stubbyResponse = STUBBY_CLIENT.makeRequest(
-         HttpSchemes.HTTPS,
-         HttpMethods.GET,
+         HttpScheme.HTTPS.asString(),
+         HttpMethod.GET.asString(),
          JettyFactory.DEFAULT_HOST,
          uri,
          SSL_PORT,
@@ -71,7 +71,7 @@ public class StubbyClientTest {
    @Test(expected = Stubby4JException.class)
    public void makeRequest_ShouldFailToMakeRequest_WhenUnsupportedMethodGiven() throws Exception {
 
-      STUBBY_CLIENT.makeRequest(HttpSchemes.HTTPS, HttpMethods.MOVE, JettyFactory.DEFAULT_HOST,
+      STUBBY_CLIENT.makeRequest(HttpScheme.HTTPS.asString(), HttpMethod.MOVE.asString(), JettyFactory.DEFAULT_HOST,
          "/item/1", SSL_PORT, null);
    }
 

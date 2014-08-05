@@ -24,8 +24,6 @@ import by.stub.utils.HandlerUtils;
 import by.stub.yaml.stubs.StubRequest;
 import org.eclipse.jetty.http.HttpStatus;
 
-import static by.stub.utils.FileUtils.BR;
-
 public final class NotFoundResponseHandlingStrategy implements StubResponseHandlingStrategy {
 
    public NotFoundResponseHandlingStrategy() {
@@ -37,9 +35,9 @@ public final class NotFoundResponseHandlingStrategy implements StubResponseHandl
 
       HandlerUtils.setResponseMainHeaders(response);
 
-      final String postMessage = assertionStubRequest.hasPostBody() ? String.format(BR + "\t%s%s", "With post data: ", assertionStubRequest.getPostBody()) : "";
-      final String headersMessage = assertionStubRequest.hasHeaders() ? String.format(BR + "\t%s%s", "With headers: ", assertionStubRequest.getHeaders()) : "";
-      final String queryMessage = (assertionStubRequest.hasQuery() ? String.format(BR + "\t%s%s", "With query params: ", assertionStubRequest.getQuery()) : "");
+      final String postMessage = assertionStubRequest.hasPostBody() ? String.format("\t\t%s%s", "With post data: ", assertionStubRequest.getPostBody()) : "";
+      final String headersMessage = assertionStubRequest.hasHeaders() ? String.format("\t\t%s%s", "With headers: ", assertionStubRequest.getHeaders()) : "";
+      final String queryMessage = (assertionStubRequest.hasQuery() ? String.format("\t\t%s%s", "With query params: ", assertionStubRequest.getQuery()) : "");
 
       final String error = String.format("(404) Nothing found for %s request at URI %s%s%s%s", assertionStubRequest.getMethod().get(0), assertionStubRequest.getUrl(), postMessage, headersMessage, queryMessage);
 

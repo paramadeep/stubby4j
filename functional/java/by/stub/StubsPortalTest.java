@@ -546,37 +546,6 @@ public class StubsPortalTest {
    }
 
    @Test
-   public void should_MakeSuccessfulRequest_AndReturnMultipleSequencedResponses_FromFile_WithBadUrls() throws Exception {
-
-      final String requestUrl = String.format("%s%s", STUBS_URL, "/uri/with/sequenced/responses/infile/withbadurls");
-      final HttpRequest request = HttpUtils.constructHttpRequest(HttpMethods.GET, requestUrl);
-
-      HttpResponse firstSequenceResponse = request.execute();
-      String firstResponseContent = firstSequenceResponse.parseAsString().trim();
-
-      assertThat(HttpStatus.CREATED_201).isEqualTo(firstSequenceResponse.getStatusCode());
-      assertThat(firstResponseContent).isEmpty();
-
-      final HttpResponse secondSequenceResponse = request.execute();
-      final String secondResponseContent = secondSequenceResponse.parseAsString().trim();
-
-      assertThat(HttpStatus.CREATED_201).isEqualTo(secondSequenceResponse.getStatusCode());
-      assertThat(secondResponseContent).isEqualTo("Still going strong!");
-
-      final HttpResponse thirdSequenceResponse = request.execute();
-      final String thirdResponseContent = thirdSequenceResponse.parseAsString().trim();
-
-      assertThat(HttpStatus.INTERNAL_SERVER_ERROR_500).isEqualTo(thirdSequenceResponse.getStatusCode());
-      assertThat(thirdResponseContent).isEmpty();
-
-      firstSequenceResponse = request.execute();
-      firstResponseContent = firstSequenceResponse.parseAsString().trim();
-
-      assertThat(HttpStatus.CREATED_201).isEqualTo(firstSequenceResponse.getStatusCode());
-      assertThat(firstResponseContent).isEmpty();
-   }
-
-   @Test
    public void should_MakeSuccessfulRequest_WhenPostRegexMatchingPostWithLineChars() throws Exception {
 
       final String requestUrl = String.format("%s%s", STUBS_URL, "/uri/with/post/regex");

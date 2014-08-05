@@ -25,7 +25,7 @@ import by.stub.handlers.strategy.admin.AdminResponseHandlingStrategyFactory;
 import by.stub.javax.servlet.http.HttpServletResponseWithGetStatus;
 import by.stub.utils.ConsoleUtils;
 import by.stub.utils.HandlerUtils;
-import org.eclipse.jetty.http.HttpHeaders;
+import org.eclipse.jetty.http.HttpHeader;
 import org.eclipse.jetty.http.HttpStatus;
 import org.eclipse.jetty.http.MimeTypes;
 import org.eclipse.jetty.server.Request;
@@ -56,13 +56,13 @@ public class AdminPortalHandler extends AbstractHandler {
       baseRequest.setHandled(true);
 
       final HttpServletResponseWithGetStatus wrapper = new HttpServletResponseWithGetStatus(response);
-      wrapper.setContentType(MimeTypes.TEXT_HTML_UTF_8);
+      wrapper.setContentType(MimeTypes.Type.TEXT_HTML_UTF_8.asString());
       wrapper.setStatus(HttpStatus.OK_200);
-      wrapper.setHeader(HttpHeaders.SERVER, HandlerUtils.constructHeaderServerName());
-      wrapper.setHeader(HttpHeaders.DATE, new Date().toString());
-      wrapper.setHeader(HttpHeaders.CACHE_CONTROL, "no-cache, no-store, must-revalidate"); // HTTP 1.1.
-      wrapper.setHeader(HttpHeaders.PRAGMA, "no-cache"); // HTTP 1.0.
-      wrapper.setDateHeader(HttpHeaders.EXPIRES, 0);
+      wrapper.setHeader(HttpHeader.SERVER.asString(), HandlerUtils.constructHeaderServerName());
+      wrapper.setHeader(HttpHeader.DATE.asString(), new Date().toString());
+      wrapper.setHeader(HttpHeader.CACHE_CONTROL.asString(), "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+      wrapper.setHeader(HttpHeader.PRAGMA.asString(), "no-cache"); // HTTP 1.0.
+      wrapper.setDateHeader(HttpHeader.EXPIRES.asString(), 0);
 
       final AdminResponseHandlingStrategy strategyStubResponse = AdminResponseHandlingStrategyFactory.getStrategy(request);
       try {

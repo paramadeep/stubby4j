@@ -7,7 +7,7 @@ import by.stub.utils.ConsoleUtils;
 import by.stub.utils.HandlerUtils;
 import by.stub.yaml.stubs.StubHttpLifecycle;
 import by.stub.yaml.stubs.StubRequest;
-import org.eclipse.jetty.http.HttpHeaders;
+import org.eclipse.jetty.http.HttpHeader;
 import org.eclipse.jetty.http.HttpStatus;
 import org.eclipse.jetty.http.MimeTypes;
 import org.eclipse.jetty.server.Request;
@@ -36,9 +36,9 @@ public class UnusedStubsHandler extends AbstractHandler {
         String unusedStubs = getUnusedStubs();
 
         baseRequest.setHandled(true);
-        wrapper.setContentType(MimeTypes.TEXT_PLAIN);
+        wrapper.setContentType(MimeTypes.Type.TEXT_PLAIN.asString());
         wrapper.setStatus(HttpStatus.OK_200);
-        wrapper.setHeader(HttpHeaders.SERVER, HandlerUtils.constructHeaderServerName());
+        wrapper.setHeader(HttpHeader.SERVER.asString(), HandlerUtils.constructHeaderServerName());
 
         try {
             final String successMessage = String.valueOf(unusedStubs);

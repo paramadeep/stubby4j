@@ -90,11 +90,12 @@ public class YamlParser {
 
          final Map<String, Object> parentNodePropertiesMap = (Map<String, Object>) rawParentNode;
          final StubHttpLifecycle stubHttpLifecycle = unmarshallYamlNodeToHttpLifeCycle(parentNodePropertiesMap);
-         if (!errorInParsingHttpLifeCycle){
-             httpLifecycles.add(stubHttpLifecycle);
+         if (errorInParsingHttpLifeCycle){
              errorInParsingHttpLifeCycle = false;
+         } else {
+             httpLifecycles.add(stubHttpLifecycle);
+             stubHttpLifecycle.setResourceId(httpLifecycles.size() - 1);
          }
-         stubHttpLifecycle.setResourceId(httpLifecycles.size() - 1);
       }
 
       return httpLifecycles;

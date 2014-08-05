@@ -1,12 +1,10 @@
 package by.stub.handlers;
 
 import by.stub.cli.ANSITerminal;
-import by.stub.database.StubbedDataManager;
 import by.stub.javax.servlet.http.HttpServletResponseWithGetStatus;
-import by.stub.server.JettyContext;
 import by.stub.utils.ConsoleUtils;
 import by.stub.utils.HandlerUtils;
-import org.eclipse.jetty.http.HttpHeaders;
+import org.eclipse.jetty.http.HttpHeader;
 import org.eclipse.jetty.http.HttpStatus;
 import org.eclipse.jetty.http.MimeTypes;
 import org.eclipse.jetty.server.Request;
@@ -26,9 +24,9 @@ public class ErrorCountHandler extends AbstractHandler {
         ConsoleUtils.logIncomingRequest(request);
 
         baseRequest.setHandled(true);
-        wrapper.setContentType(MimeTypes.TEXT_PLAIN_UTF_8);
+        wrapper.setContentType(MimeTypes.Type.TEXT_PLAIN_UTF_8.asString());
         wrapper.setStatus(HttpStatus.OK_200);
-        wrapper.setHeader(HttpHeaders.SERVER, HandlerUtils.constructHeaderServerName());
+        wrapper.setHeader(HttpHeader.SERVER.asString(), HandlerUtils.constructHeaderServerName());
 
         try {
             final String successMessage = String.valueOf(errorCount);

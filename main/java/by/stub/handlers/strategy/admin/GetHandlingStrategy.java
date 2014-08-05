@@ -39,7 +39,7 @@ public class GetHandlingStrategy implements AdminResponseHandlingStrategy {
          yamlAppender.append(stubbedDataManager.getMarshalledYaml());
       }
 
-      wrapper.setContentType(MimeTypes.TEXT_PLAIN_UTF_8);
+      wrapper.setContentType(MimeTypes.Type.TEXT_PLAIN_UTF_8.asString());
 
       final OutputStream streamOut = wrapper.getOutputStream();
       streamOut.write(StringUtils.getBytesUtf8(yamlAppender.toString()));

@@ -212,7 +212,7 @@ public class YamlParserTest {
    }
 
    @Test
-   public void shouldUnmarshallYamlIntoObjectTree_WhenYAMLValid_WithFileFailedToLoadAndPostSet() throws Exception {
+   public void shouldNotUnmarshallYamlIntoObjectTree_WhenYAMLValid_WithFileFailedToLoadAndPostSet() throws Exception {
 
       final String stubbedRequestFile = "../../very.big.soap.request.xml";
 
@@ -228,11 +228,7 @@ public class YamlParserTest {
 
       final List<StubHttpLifecycle> loadedHttpCycles = unmarshall(yaml);
 
-      final StubHttpLifecycle actualHttpLifecycle = loadedHttpCycles.get(0);
-      final StubRequest actualRequest = actualHttpLifecycle.getRequest();
-
-      assertThat(actualRequest.getFile()).isEqualTo(new byte[]{});
-      assertThat(actualRequest.getPostBody()).isEqualTo(expectedPost);
+      assertThat(loadedHttpCycles.size() == 0);
    }
 
    @Test
@@ -266,7 +262,7 @@ public class YamlParserTest {
 
 
    @Test
-   public void shouldUnmarshallYamlIntoObjectTree_WhenYAMLValid_WithFileFailedToLoadAndBodySet() throws Exception {
+   public void shouldNotUnmarshallYamlIntoObjectTree_WhenYAMLValid_WithFileFailedToLoadAndBodySet() throws Exception {
 
       final String stubbedResponseFile = "../../very.big.soap.response.xml";
 
@@ -281,11 +277,8 @@ public class YamlParserTest {
 
       final List<StubHttpLifecycle> loadedHttpCycles = unmarshall(yaml);
 
-      final StubHttpLifecycle actualHttpLifecycle = loadedHttpCycles.get(0);
-      final StubResponse actualResponse = actualHttpLifecycle.getResponse(true);
+       assertThat(loadedHttpCycles.size() == 0);
 
-      assertThat(actualResponse.getFile()).isEqualTo(new byte[]{});
-      assertThat(StringUtils.newStringUtf8(actualResponse.getResponseBodyAsBytes())).isEqualTo(expectedBody);
    }
 
    @Test

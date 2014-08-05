@@ -21,8 +21,7 @@ package by.stub.utils;
 
 import by.stub.annotations.CoberturaIgnore;
 import by.stub.exception.Stubby4JException;
-import by.stub.handlers.ErrorCountHandler;
-import org.eclipse.jetty.http.HttpHeaders;
+import org.eclipse.jetty.http.HttpHeader;
 import org.eclipse.jetty.http.MimeTypes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,7 +45,6 @@ public final class HandlerUtils {
    }
 
    public static void configureErrorResponse(final HttpServletResponse response, final int httpStatus, final String message) throws IOException {
-      ErrorCountHandler.errorCount =   ErrorCountHandler.errorCount +1;
       response.setStatus(httpStatus);
       response.sendError(httpStatus, message);
       response.flushBuffer();
@@ -71,12 +69,12 @@ public final class HandlerUtils {
    }
 
    public static void setResponseMainHeaders(final HttpServletResponse response) {
-      response.setHeader(HttpHeaders.SERVER, HandlerUtils.constructHeaderServerName());
-      response.setHeader(HttpHeaders.DATE, new Date().toString());
-      response.setHeader(HttpHeaders.CONTENT_TYPE, MimeTypes.TEXT_HTML_UTF_8);
-      response.setHeader(HttpHeaders.CACHE_CONTROL, "no-cache, no-store, must-revalidate"); // HTTP 1.1.
-      response.setHeader(HttpHeaders.PRAGMA, "no-cache"); // HTTP 1.0.
-      response.setDateHeader(HttpHeaders.EXPIRES, 0);
+      response.setHeader(HttpHeader.SERVER.asString(), HandlerUtils.constructHeaderServerName());
+      response.setHeader(HttpHeader.DATE.asString(), new Date().toString());
+      response.setHeader(HttpHeader.CONTENT_TYPE.asString(), MimeTypes.Type.TEXT_HTML_UTF_8.asString());
+      response.setHeader(HttpHeader.CACHE_CONTROL.asString(), "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+      response.setHeader(HttpHeader.PRAGMA.asString(), "no-cache"); // HTTP 1.0.
+      response.setDateHeader(HttpHeader.EXPIRES.asString(), 0);
    }
 
    public static String linkifyRequestUrl(final String scheme, final Object uri, final String host, final int port) {

@@ -49,7 +49,7 @@ public class AjaxEndpointStatsHandler extends AbstractHandler {
 
       final HttpServletResponseWithGetStatus wrapper = new HttpServletResponseWithGetStatus(response);
       HandlerUtils.setResponseMainHeaders(wrapper);
-      wrapper.setContentType(MimeTypes.TEXT_PLAIN_UTF_8);
+      wrapper.setContentType(MimeTypes.Type.TEXT_PLAIN_UTF_8.asString());
       wrapper.setStatus(HttpStatus.OK_200);
 
       try {
